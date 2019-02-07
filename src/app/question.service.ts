@@ -28,9 +28,10 @@ export class QuestionService {
       new TextboxQuestion({
         key: 'firstName',
         label: 'First name',
-        value: 'Bombasto',
+        // value: 'Bombasto',
         required: true,
-        order: 1
+        order: 1,
+        number: true
       }),
 
       new TextboxQuestion({
