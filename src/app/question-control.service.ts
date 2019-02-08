@@ -8,18 +8,21 @@ export class QuestionControlService {
   constructor() { }
 
   toFormGroup(questions: QuestionBase<any>[] ) {
-    let group: any = {};
-
+    const group: any = {};
+    let validaciones = [];
     questions.forEach(question => {
-      //
-      group[question.key] = question.required ? new FormControl(question.value || '', Validators.required)
-                                              : new FormControl(question.value || '');
-      
-      console.log('group \n', group);
+      if (question.required) {
+        validaciones.push(Validators.required);
+      }
+      // Validación para solo números
+      if (question.number) {
+        validaciones.push(Validators.pattern(/^([0-9])*$/));
+      }
+
+      group[question.key] = new FormControl(question.value || '', validaciones);
+      validaciones = [];
+
     });
-
-
-
 
     return new FormGroup(group);
   }
